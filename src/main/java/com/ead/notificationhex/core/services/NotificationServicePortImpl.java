@@ -3,6 +3,7 @@ package com.ead.notificationhex.core.services;
 
 import com.ead.notificationhex.core.domain.NotificationDomain;
 import com.ead.notificationhex.core.domain.PageInfo;
+import com.ead.notificationhex.core.domain.enums.NotificationStatus;
 import com.ead.notificationhex.core.ports.NotificationPersistencePort;
 import com.ead.notificationhex.core.ports.NotificationServicePort;
 
@@ -20,12 +21,12 @@ public class NotificationServicePortImpl implements NotificationServicePort {
 
     @Override
     public NotificationDomain saveNotification(NotificationDomain notificationDomain) {
-        return notificationPersistencePort.saveNotification(notificationDomain);
+        return notificationPersistencePort.save(notificationDomain);
     }
 
     @Override
     public List<NotificationDomain> findAllNotificationsByUser(UUID userId, PageInfo pageable) {
-        return notificationPersistencePort.findAllNotificationsByUser(userId,  pageable);
+        return notificationPersistencePort.findAllByUserIdAndNotificationStatus(userId, NotificationStatus.CREATED, pageable);
     }
 
     @Override
