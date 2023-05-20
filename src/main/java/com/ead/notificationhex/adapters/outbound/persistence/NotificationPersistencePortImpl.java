@@ -28,7 +28,8 @@ public class NotificationPersistencePortImpl implements NotificationPersistenceP
 
     @Override
     public NotificationDomain save(NotificationDomain notificationDomain) {
-        NotificationEntity notificationEntity = notificationJpaRepository.save(modelMapper.map(notificationDomain, NotificationEntity.class));
+        NotificationEntity not = modelMapper.map(notificationDomain, NotificationEntity.class);
+        NotificationEntity notificationEntity = notificationJpaRepository.save(not);
         return modelMapper.map(notificationEntity, NotificationDomain.class);
     }
 

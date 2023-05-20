@@ -1,5 +1,6 @@
 package com.ead.notificationhex.adapters.configs.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,11 +17,8 @@ import java.util.UUID;
 
 public class AuthenticationJwtFilter extends OncePerRequestFilter {
 
-    private final JwtProvider jwtProvider;
-
-    public AuthenticationJwtFilter(JwtProvider jwtProvider) {
-        this.jwtProvider = jwtProvider;
-    }
+    @Autowired
+    private JwtProvider jwtProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {

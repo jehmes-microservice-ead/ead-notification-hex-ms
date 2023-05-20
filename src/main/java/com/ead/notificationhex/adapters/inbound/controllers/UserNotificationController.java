@@ -45,15 +45,16 @@ public class UserNotificationController {
 
     @PreAuthorize("hasAnyRole('STUDENT')")
     @PutMapping("/users/{userId}/notifications/{notificationId}")
-    public ResponseEntity<Object> updateNotification(@PathVariable(value = "userId") UUID userId,
-                                                     @PathVariable(value = "notificationId") UUID notificationId,
-                                                     @RequestBody @Valid NotificationDto notificationDto) {
-        Optional<NotificationDomain> NotificationDomainOptional = notificationServicePort.findByNotificationIdAndUserId(notificationId, userId);
-        if (NotificationDomainOptional.isEmpty()) {
+    public ResponseEntity<Object> updateNotification(@PathVariable(value="userId") UUID userId,
+                                                     @PathVariable(value="notificationId") UUID notificationId,
+                                                     @RequestBody @Valid NotificationDto notificationDto){
+        Optional<NotificationDomain> notificationModelOptional =
+                notificationServicePort.findByNotificationIdAndUserId(notificationId, userId);
+        if(notificationModelOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Notification not found!");
         }
-        NotificationDomainOptional.get().setNotificationStatus(notificationDto.getNotificationStatus());
-        notificationServicePort.saveNotification(NotificationDomainOptional.get());
-        return ResponseEntity.status(HttpStatus.OK).body(NotificationDomainOptional.get());
+        notificationModelOptional.get().setNotificationStatus(notificationDto.getNotificationStatus());
+        notificationServicePort.saveNotification(notificationModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body(notificationModelOptional.get());
     }
 }

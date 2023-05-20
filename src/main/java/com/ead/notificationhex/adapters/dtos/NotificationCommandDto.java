@@ -19,4 +19,16 @@ public class NotificationCommandDto {
     public UUID getUserId() {
         return userId;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
 }
